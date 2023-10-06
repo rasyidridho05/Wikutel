@@ -5,6 +5,8 @@ import axios from "axios";
 import LinesEllipsis from "react-lines-ellipsis";
 import $ from "jquery";
 import moment from "moment";
+import swal from "sweetalert";
+import Footer from "../../components/Footer";
 
 export default class Home extends React.Component {
   constructor() {
@@ -78,11 +80,11 @@ export default class Home extends React.Component {
       id_customer: this.state.id_customer,
       id_room_type: "",
       booking_number: Math.floor(Math.random() * 90000) + 10000,
-      booking_date: moment().format("DD/MM/YYYY"),
+      booking_date: moment().format("DD/MMM/YYYY"),
       check_in_date: "",
       check_out_date: "",
       guest_name: "",
-      total_room: "",
+      total_room: 1,
       action: "insert",
     });
     console.log(this.state.booking_date);
@@ -100,17 +102,16 @@ export default class Home extends React.Component {
       guest_name: this.state.guest_name,
       total_room: this.state.total_room,
     };
+
     let url = "http://localhost:8080/booking/add";
-    axios
-      .post(url, form, this.headerConfig())
-      .then((response) => {
-        this.getBooking();
-        this.handleClose();
-        window.location = "/booking";
-      })
-      .catch((error) => {
-        console.log("error add data", error);
-      });
+    axios.post(url, form, this.headerConfig()).then((response) => {
+      this.getBooking();
+      this.handleClose();
+      window.location = "/booking";
+    });
+    swal({ title: "Berhasil Booking!", icon: "success" }).catch((error) => {
+      console.log("error add data", error);
+    });
   };
 
   handleFilter = () => {
@@ -118,6 +119,7 @@ export default class Home extends React.Component {
       check_in_date: this.state.in,
       check_out_date: this.state.out,
     };
+
     let url = "http://localhost:8080/room/find/available";
     axios
       .post(url, data)
@@ -135,6 +137,14 @@ export default class Home extends React.Component {
       .catch((error) => {
         console.log("error", error.response.status);
       });
+  };
+
+  handleCheckInChange = (e) => {
+    const checkInDate = e.target.value;
+    this.setState({
+      check_in_date: checkInDate,
+      check_out_date: "",
+    });
   };
 
   getBooking = () => {
@@ -207,21 +217,21 @@ export default class Home extends React.Component {
     }
     this.getResepsionis();
   }
-
   render() {
+    const today = new Date().toISOString().split("T")[0];
     return (
       <div>
         <Navbar />
-        <section class="bg-sky-800 py-24 mt-6">
+        <section class=" py-24 mt-6 ">
           <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
-              <h1 class="max-w-2xl mb-8 text-4xl font-extrabold leading-none md:text-4xl xl:text-5xl text-white">
-                Discover The Best Hotels & Resorts to Stay
+              <h1 class="max-w-2xl mb-8 text-4xl font-extrabold leading-none md:text-4xl xl:text-5xl text-sky-800">
+                Find the Best Hotels & Resorts to Stay
               </h1>
-              <p class="max-w-2xl mb-6 font-light lg:mb-14 md:text-lg lg:text-xl text-white">
-                We provide a variety of the best lodging accomodations for those
-                of you who need it. Don't worry about the quality of the
-                service.
+              <p class="max-w-2xl mb-6 lg:mb-14 md:text-lg lg:text-xl text-sky-700">
+                We provide a variety of the best accommodation for the best
+                experience. There's no need to doubt the quality, let's book
+                now!
               </p>
               <div class="flex flex-row mb-8">
                 <div className=" bg-white border-2 border-grey rounded-lg shadow h-auto">
@@ -237,6 +247,7 @@ export default class Home extends React.Component {
                             className="border-2 border-blue-400 rounded-md p-1"
                             value={this.state.in}
                             onChange={this.handleChange}
+                            min={today}
                           />
                         </div>
                       </div>
@@ -252,13 +263,14 @@ export default class Home extends React.Component {
                             className="border-2 border-blue-400 rounded-md p-1"
                             value={this.state.out}
                             onChange={this.handleChange}
+                            min={this.state.in}
                           />
                         </div>
                       </div>
                     </div>
                     <div className="px-4 pt-9 pb-6">
                       <button
-                        className="border border-sky-500 hover:bg-sky-600 text-sky-600 hover:text-white font-semibold p-2 pr-3 pl-3 w-full rounded focus:outline-none focus:shadow-outline"
+                        className="border border-sky-500 hover:bg-sky-600 text-sky-600 transition transform duration-300 hover:text-white font-semibold p-2 pr-3 pl-3 w-full rounded focus:outline-none focus:shadow-outline"
                         onClick={this.handleFilter}
                       >
                         Check Rooms
@@ -269,7 +281,7 @@ export default class Home extends React.Component {
                 {this.state.isLogin ? (
                   <div className="px-6 pt-9 pb-6">
                     <button
-                      className=" bg-sky-500 hover:bg-sky-600 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
+                      className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
                       onClick={() => this.showModal()}
                     >
                       Booking now
@@ -290,7 +302,7 @@ export default class Home extends React.Component {
                 ) : (
                   <div className="px-6 pt-9 pb-6">
                     <button
-                      className=" bg-gray-400 hover:bg-gray-600 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
+                      className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
                       disabled
                     >
                       Booking Now
@@ -311,20 +323,20 @@ export default class Home extends React.Component {
                 )}
               </div>
             </div>
-            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <div class="hidden lg:mt-0 lg:col-span-5 lg:flex shadow-2xl">
               <img className="rounded-3xl" src={images} alt="mockup" />
             </div>
           </div>
         </section>
 
         {this.state.rooms.length > 0 && (
-          <section class="bg-gray-100">
+          <section class="bg-gray-100 pb-16">
             <div class="py-4 lg:py-10 mx-auto max-w-screen-xl px-4">
               <h2 class="lg:mb-8 mt-6 text-3xl font-extrabold tracking-tight leading-tight text-center text-sky-900  md:text-4xl">
                 Available Room
               </h2>
             </div>
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 gap-4">
               {this.state.rooms.map((item, index) => (
                 <div class="col-span-1">
                   <div class="CardEvent mx-10">
@@ -342,8 +354,8 @@ export default class Home extends React.Component {
                         <div class="font-bold text-2xl mb-2">
                           {item.name_room_type}
                         </div>
-                        <div class="font-bold text-xl mb-2 text-blue-600">
-                          Rp {item.price}/night
+                        <div class="font-bold text-xl mb-2 text-sky-600">
+                          Rp {item.price}/Night
                         </div>
                         <p class="text-gray-700 text-base">
                           <LinesEllipsis
@@ -355,7 +367,7 @@ export default class Home extends React.Component {
                       </div>
                       <div class="px-6 pt-4 pb-2">
                         <button
-                          class="mb-2 ml-40 bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 w-1/3 rounded focus:outline-none focus:shadow-outline"
+                          class="mb-2 ml-40 bg-sky-600 hover:bg-sky-700 text-white font-bold p-2 w-1/3 rounded focus:outline-none focus:shadow-outline transition transform duration-300"
                           type="button"
                           onClick={() => this.handleDetail(item)}
                         >
@@ -418,7 +430,7 @@ export default class Home extends React.Component {
                     {this.state.name_room_type}
                   </div>
                   <div class="font-bold text-xl mb-2 text-blue-600">
-                    {this.state.price}/night
+                    {this.state.price}/Night
                   </div>
                   <p class="text-black-700 text-base">
                     {this.state.description}
@@ -505,6 +517,7 @@ export default class Home extends React.Component {
                         value={this.state.total_room}
                         onChange={this.handleChange}
                         required
+                        min={1}
                       />
                     </div>
                     <div>
@@ -530,6 +543,7 @@ export default class Home extends React.Component {
                         ))}
                       </select>
                     </div>
+
                     <div>
                       <label
                         for="booking_date"
@@ -562,6 +576,7 @@ export default class Home extends React.Component {
                         id="check_in_date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-gray-800 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-800"
                         placeholder="Choose check in date"
+                        min={today}
                         value={this.state.check_in_date}
                         onChange={this.handleChange}
                         required
@@ -582,6 +597,8 @@ export default class Home extends React.Component {
                         placeholder="Choose check out date"
                         value={this.state.check_out_date}
                         onChange={this.handleChange}
+                        min={this.state.check_in_date}
+                        disabled={!this.state.check_in_date}
                         required
                       />
                     </div>
@@ -618,6 +635,7 @@ export default class Home extends React.Component {
             </div>
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

@@ -136,8 +136,11 @@ export default class HistoryTransaksi extends React.Component {
     axios
       .get(url)
       .then((response) => {
+        const sortedBooking = response.data.data.sort((a, b) =>
+          moment(b.booking_date).diff(a.booking_date)
+        );
         this.setState({
-          booking: response.data.data,
+          booking: sortedBooking,
         });
       })
       .catch((error) => {
@@ -161,24 +164,24 @@ export default class HistoryTransaksi extends React.Component {
   render() {
     const title = "Transaction History";
     return (
-      <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
+      <div className="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <Sidebar />
-        <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+        <main className="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
           <Header title={title} />
-          <div class="main-content flex flex-col flex-grow p-4">
-            <div class="mb-4 flex flex-row">
+          <div className="main-content flex flex-col flex-grow p-4">
+            <div className="mb-4 flex flex-row">
               <div className="justify-items-center w-1/2">
                 <div className="rounded ml-5">
                   <label
                     for="default-search"
-                    class="mb-2 text-sm font-medium text-gray-900 sr-only"
+                    className="mb-2 text-sm font-medium text-gray-900 sr-only"
                   >
                     Search
                   </label>
-                  <div class="relative">
-                    <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                  <div className="relative">
+                    <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                       <svg
-                        class="w-5 h-5 text-gray-500"
+                        className="w-5 h-5 text-gray-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -195,7 +198,7 @@ export default class HistoryTransaksi extends React.Component {
                     <input
                       type="search"
                       id="default-search"
-                      class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
+                      className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-sky-500 focus:border-sky-500"
                       placeholder="Please search only by booking number"
                       name="keyword"
                       value={this.state.keyword}
@@ -203,7 +206,7 @@ export default class HistoryTransaksi extends React.Component {
                     />
                     <button
                       type="submit"
-                      class="text-white absolute right-2.5 bottom-2.5 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2"
+                      className="text-white absolute right-2.5 bottom-2.5 bg-sky-700 hover:bg-sky-800 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-4 py-2"
                       onClick={this.handleSearch}
                     >
                       Search
@@ -212,77 +215,121 @@ export default class HistoryTransaksi extends React.Component {
                 </div>
               </div>
             </div>
-            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md mx-5">
-              <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
-                <thead class="bg-gray-50">
+            <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md mx-5">
+              <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
+                <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       ID
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Customer
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Guest
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Room Type
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Room Total
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Booking Date
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       CheckIn Date
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       CheckOut Date
                     </th>
-                    <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                    <th
+                      scope="col"
+                      className="px-6 py-4 font-medium text-gray-900"
+                    >
                       Status
                     </th>
                     {this.state.role === "resepsionis" && (
                       <th
                         scope="col"
-                        class="px-6 py-4 font-medium text-gray-900"
+                        className="px-6 py-4 font-medium text-gray-900"
                       >
                         Action
                       </th>
                     )}
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                   {this.state.booking.map((item, index) => {
                     return (
-                      <tr class="hover:bg-gray-50" key={index}>
-                        <td class="px-4 py-4">{item.id_booking}</td>
-                        <td class="px-4 py-4">{item.name_customer}</td>
-                        <td class="px-4 py-4">{item.guest_name}</td>
-                        <td class="px-4 py-4">
+                      <tr className="hover:bg-gray-50" key={index}>
+                        <td className="px-4 py-4">{item.id_booking}</td>
+                        <td className="px-4 py-4">{item.name_customer}</td>
+                        <td className="px-4 py-4">{item.guest_name}</td>
+                        <td className="px-4 py-4">
                           {item.room_type.name_room_type}
                         </td>
-                        <td class="px-4 py-4">{item.total_room}</td>
-                        <td class="px-4 py-4">
+                        <td className="px-4 py-4">{item.total_room}</td>
+                        <td className="px-4 py-4">
                           {moment(item.booking_date).format("DD MMM YYYY")}
                         </td>
-                        <td class="px-4 py-4">
+                        <td className="px-4 py-4">
                           {moment(item.check_in_date).format("DD MMM YYYY")}
                         </td>
-                        <td class="px-4 py-4">
+                        <td className="px-4 py-4">
                           {moment(item.check_out_date).format("DD MMM YYYY")}
                         </td>
-                        <td class="px-4 py-4">
-                          <span class="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600">
-                            {item.booking_status}
-                          </span>
+                        <td className="px-4 py-4">
+                          {item.booking_status === "baru" && (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                              {item.booking_status}
+                            </span>
+                          )}
+                          {item.booking_status === "check_in" && (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
+                              {item.booking_status}
+                            </span>
+                          )}
+                          {item.booking_status === "check_out" && (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-800">
+                              {item.booking_status}
+                            </span>
+                          )}
                         </td>
                         {this.state.role === "resepsionis" && (
-                          <td class="px-4 py-4">
+                          <td className="px-4 py-4">
                             <button
-                              className="bg-sky-600 rounded py-2 px-4 text-white font-bold"
+                              className={`bg-sky-600 rounded py-2 px-4 text-white font-bold ${
+                                item.booking_status === "check_out"
+                                  ? "opacity-50 cursor-not-allowed"
+                                  : ""
+                              }`}
                               onClick={() => this.handleEdit(item)}
+                              disabled={item.booking_status === "check_out"}
                             >
                               Edit
                             </button>
@@ -295,9 +342,9 @@ export default class HistoryTransaksi extends React.Component {
               </table>
             </div>
           </div>
-          <footer class="footer px-4 py-2">
-            <div class="footer-content">
-              <p class="text-sm text-gray-600 text-center">
+          <footer className="footer px-4 py-2">
+            <div className="footer-content">
+              <p className="text-sm text-gray-600 text-center">
                 © ukk hotel wikusama
               </p>
             </div>
@@ -309,18 +356,18 @@ export default class HistoryTransaksi extends React.Component {
           id="modal_transaction"
           tabindex="-1"
           aria-hidden="true"
-          class="overflow-x-auto fixed top-0 left-0 right-0 z-50 hidden w-full p-4 md:inset-0 h-modal md:h-full bg-tranparent bg-black bg-opacity-50"
+          className="overflow-x-auto fixed top-0 left-0 right-0 z-50 hidden w-full p-4 md:inset-0 h-modal md:h-full bg-tranparent bg-black bg-opacity-50"
         >
-          <div class="flex lg:h-auto w-auto justify-center ">
-            <div class="relative bg-white rounded-lg shadow dark:bg-white w-1/3">
+          <div className="flex lg:h-auto w-auto justify-center ">
+            <div className="relative bg-white rounded-lg shadow dark:bg-white w-1/3">
               <button
                 type="button"
-                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
                 onClick={() => this.handleClose()}
               >
                 <svg
                   aria-hidden="true"
-                  class="w-5 h-5"
+                  className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -331,20 +378,20 @@ export default class HistoryTransaksi extends React.Component {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span class="sr-only">Tutup modal</span>
+                <span className="sr-only">Tutup modal</span>
               </button>
-              <div class="px-6 py-6 lg:px-8">
-                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-black">
+              <div className="px-6 py-6 lg:px-8">
+                <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-black">
                   Edit Status
                 </h3>
                 <form
-                  class="space-y-6"
+                  className="space-y-6"
                   onSubmit={(event) => this.handleSave(event)}
                 >
                   <div>
                     <label
                       for="booking_status"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-800"
                     >
                       Booking Status
                     </label>
@@ -352,7 +399,7 @@ export default class HistoryTransaksi extends React.Component {
                       name="booking_status"
                       onChange={this.handleChange}
                       id="booking_status"
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-gray-800 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-800"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-sky-500 focus:border-gray-800 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-gray-800"
                     >
                       <option value={this.state.booking_status}>
                         {this.state.booking_status}
@@ -364,7 +411,7 @@ export default class HistoryTransaksi extends React.Component {
                   </div>
                   <button
                     type="submit"
-                    class="w-full text-white bg-gradient-to-br from-purple-600 to-sky-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                    className="w-full text-white bg-gradient-to-br from-purple-600 to-sky-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-sky-300 dark:focus:ring-sky-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                   >
                     Simpan
                   </button>

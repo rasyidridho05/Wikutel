@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOut, faHotel } from "@fortawesome/free-solid-svg-icons";
+import swal from "sweetalert";
 
 export default class Navbar extends Component {
   constructor() {
@@ -17,12 +18,24 @@ export default class Navbar extends Component {
   }
 
   logout = () => {
-    if (window.confirm("Are u sure to logout?")) {
-      localStorage.clear();
-      this.setState({
-        isLogin: false,
-      });
-    }
+    swal({
+      title: 'Are you sure to logout?',
+      text: 'You will be logged out of your account.',
+      icon: 'warning',
+      buttons: {
+        cancel: 'No, cancel',
+        confirm: 'Yes, logout',
+      },
+      dangerMode: true,
+    }).then((willLogout) => {
+      if (willLogout) {
+        localStorage.clear();
+        this.setState({
+          isLogin: false,
+        });
+        window.location.href = "/home";
+      }
+    });
   };
 
   componentDidMount() {
@@ -36,7 +49,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 fixed w-full z-50 top-0">
+        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 fixed w-full z-50 top-0 shadow-lg">
           <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <div class="inline-flex">
               <div class="inline-flex flex-row items-center">
@@ -90,6 +103,15 @@ export default class Navbar extends Component {
                     </li>
                     <li>
                       <NavLink
+                        to="/about"
+                        className="lg:text-sky-800 hover:bg-sky-500 transition transform duration-300 hover:lg:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-md py-2.5 px-5 mr-2 focus:outline-none"
+                        aria-current="page"
+                      >
+                        About
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
                         to="/room-type-customer"
                         className="lg:text-sky-800 hover:bg-sky-500 transition transform duration-300 hover:lg:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-md py-2.5 px-5 mr-2 focus:outline-none"
                       >
@@ -114,6 +136,15 @@ export default class Navbar extends Component {
                         aria-current="page"
                       >
                         Home
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/about"
+                        className="lg:text-sky-800 hover:bg-sky-500 transition transform duration-300 hover:lg:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-md py-2.5 px-5 mr-2 focus:outline-none"
+                        aria-current="page"
+                      >
+                        About
                       </NavLink>
                     </li>
                     <li>

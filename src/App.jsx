@@ -13,8 +13,10 @@ import HistoryTransaksi from "./pages/Admin/HistoryTransaksi";
 import RegisterCust from "./pages/Customer/Register";
 import LoginCust from "./pages/Customer/Login";
 import Home from "./pages/Customer/Home";
+import About from "./pages/Customer/About";
 import RoomTypeCustomer from "./pages/Customer/RoomType/RoomType";
 import Booking from "./pages/Customer/Booking";
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
 
         {/* customer side */}
         <Route path="/home" element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
         <Route path="/login" element={<LoginCust />}></Route>
         <Route path="/register" element={<RegisterCust />}></Route>
         <Route path="/room-type-customer" element={<RoomTypeCustomer />}></Route>

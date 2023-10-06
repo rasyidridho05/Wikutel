@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import hotel from "../../assets/hotel-login.jpeg";
+import swal from "sweetalert";
 
 export default class Login extends React.Component {
   constructor() {
@@ -39,29 +40,39 @@ export default class Login extends React.Component {
           localStorage.setItem("token", token);
           localStorage.setItem("role", role);
           localStorage.setItem("email", email);
-          alert("Success Login");
-          window.location.href = "/home";
+          swal({
+            icon: "success",
+            title: "Success Login",
+            timer:1000,
+            buttons:false,
+          }).then(() => {
+            window.location.href = "/home";
+          });
+
         } else {
-          alert(response.data.message);
+          swal("Error", response.data.message);
           this.setState({ message: response.data.message });
         }
       })
       .catch((error) => {
         console.log("error", error.response.status);
         if (error.response.status === 500 || error.response.status === 404) {
-          window.alert("Failed to LogIn Wikusama Hotel as Customer");
+          swal({
+            title: "Wrong email or password",
+            icon: "error",
+          });
         }
       });
   };
 
   render() {
     return (
-      <div className="w-full h-screen flex">
+      <div className="w-full h-screen flex ">
         <div className="grid grid-cols-1 md:grid-cols-2 m-auto h-[550px] shadow-lg shadow-gray-600 sm:max-w-[900px]">
           <div className="w-full h-[550px] hidden md:block">
             <img className="w-full h-full" src={hotel} alt="/" />
           </div>
-          <div className="p-4 flex flex-col justify-around">
+          <div className="p-4 flex flex-col justify-around bg-white">
             <form onSubmit={(e) => this.handleLogin(e)}>
               <h2 className="text-4xl font-bold text-center mb-8 text-sky-800">
                 Wikusama Hotel

@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 import "./styles.css";
 import axios from "axios";
 import $ from "jquery";
+import Footer from "../../../components/Footer";
 
 export default class RoomTypeCustomer extends React.Component {
   constructor() {
@@ -103,9 +104,9 @@ export default class RoomTypeCustomer extends React.Component {
   render() {
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800 pt-20">
-        <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
+        <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-300 ease-in">
           <Navbar />
-          <div class="main-content flex flex-col flex-grow p-4">
+          <div class="main-content flex flex-col flex-grow p-4 pl-16 mb-16 ">
             <div class="mb-4">
               <div className="justify-items-center w-1/2">
                 <div className="rounded mb-5">
@@ -152,7 +153,7 @@ export default class RoomTypeCustomer extends React.Component {
                 </div>
               </div>
             </div>
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-3 gap-y-4">
               {this.state.typeroom.map((item, index) => (
                 <div class="col-span-1">
                   <div class="CardEvent" key={index}>
@@ -169,7 +170,7 @@ export default class RoomTypeCustomer extends React.Component {
                           {item.name_room_type}
                         </div>
                         <div class="font-bold text-xl mb-2 text-sky-600">
-                          {item.price}/night
+                          Rp {item.price}/Night
                         </div>
                         <p class="text-gray-700 text-base">
                           <LinesEllipsis
@@ -181,7 +182,7 @@ export default class RoomTypeCustomer extends React.Component {
                       </div>
                       <div class="ml-1 pt-4 pb-2">
                         <button
-                          class="mb-2 ml-40 bg-blue-600 hover:bg-blue-700 text-white font-bold p-2 w-1/3 rounded focus:outline-none focus:shadow-outline"
+                          class="mb-2 ml-40 bg-sky-600 hover:bg-sky-700 text-white font-bold p-2 w-1/3 rounded focus:outline-none focus:shadow-outline transition transform duration-300"
                           type="button"
                           onClick={() => this.handleDetail(item)}
                         >
@@ -230,7 +231,7 @@ export default class RoomTypeCustomer extends React.Component {
                 <div class="p-6">
                   <div className="container">
                     <img
-                      class="rounded-md w-200 h-100"
+                      class="rounded-md w-full h-64"
                       alt="images not found"
                       src={
                         "http://localhost:8080/uploads/image/" +
@@ -242,8 +243,8 @@ export default class RoomTypeCustomer extends React.Component {
                     <div class="font-bold text-2xl mb-2">
                       {this.state.name_room_type}
                     </div>
-                    <div class="font-bold text-xl mb-2 text-blue-600">
-                      {this.state.price}/night
+                    <div class="font-bold text-xl mb-2 text-sky-600">
+                      Rp {this.state.price}/Night
                     </div>
                     <p class="text-black-700 text-base">
                       {this.state.description}
@@ -253,13 +254,7 @@ export default class RoomTypeCustomer extends React.Component {
               </div>
             </div>
           </div>
-          <footer class="footer px-4 py-2">
-            <div class="footer-content">
-              <p class="text-sm text-gray-600 text-center">
-                © 2023 Wikusama Hotel 
-              </p>
-            </div>
-          </footer>
+          <Footer />
         </main>
       </div>
     );
