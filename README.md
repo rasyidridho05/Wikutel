@@ -6,6 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 You can clonning this project by command `git clone https://github.com/rasyidridho05/Wikutel.git` 
+
 Installing node modules by command `npm i`
 
 In the project directory, you can run:
