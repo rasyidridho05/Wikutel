@@ -217,8 +217,12 @@ export default class Home extends React.Component {
     }
     this.getResepsionis();
   }
+  formatPrice = (price) => {
+    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
   render() {
     const today = new Date().toISOString().split("T")[0];
+    const formattedPrice = this.formatPrice(this.state.price)
     return (
       <div>
         <Navbar />
@@ -429,8 +433,8 @@ export default class Home extends React.Component {
                   <div class="font-bold text-2xl mb-2">
                     {this.state.name_room_type}
                   </div>
-                  <div class="font-bold text-xl mb-2 text-blue-600">
-                    {this.state.price}/Night
+                  <div class="font-bold text-xl mb-2 text-sky-600">
+                    Rp. {formattedPrice}/Night
                   </div>
                   <p class="text-black-700 text-base">
                     {this.state.description}

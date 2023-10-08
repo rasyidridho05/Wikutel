@@ -26,7 +26,7 @@ export default class Footer extends Component {
   render() {
     return (
       <>
-        <footer className=" border-t-2 border-sky-800 w-full">
+        <footer className=" border-t-2 border-sky-800 w-full ">
           <div className="container p-6 mx-auto">
             <div className="lg:flex">
               <div className="mt-6 lg:mt-0 lg:flex-1">

@@ -9,7 +9,9 @@ import "@progress/kendo-theme-material/dist/all.css";
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import "./invoice.styles.css";
 
+
 const PrintElement = (props) => {
+  
   const { item } = props;
   return (
     <div className="mt-4">
@@ -21,7 +23,7 @@ const PrintElement = (props) => {
           <div>
             <p>
               <span className="font-semibold mt-2">Address:</span> 
-              Jl. Danau Ranau, Sawojajar, Malang 65139
+               <br />Jl. Danau Ranau, Sawojajar, Malang 65139
             </p>
             <p>
               <span className="font-semibold mt-2">Phone:</span> 031-217111
@@ -61,7 +63,7 @@ const PrintElement = (props) => {
               <td className="p-4 text-left">
                 {moment(item.check_out_date).format("DD-MM-YYYY")}
               </td>
-              <td className="p-4 text-left">{item.room_type.price}</td>
+              <td className="p-4 text-center"> Rp. {item.room_type.price}</td>
             </tr>
           </tbody>
         </table>

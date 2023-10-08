@@ -101,7 +101,12 @@ export default class RoomTypeCustomer extends React.Component {
     this.getTypeRoom();
   }
 
+  formatPrice = (price) => {
+    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   render() {
+    const formattedPrice = this.formatPrice(this.state.price);
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800 pt-20">
         <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-300 ease-in">
@@ -155,6 +160,7 @@ export default class RoomTypeCustomer extends React.Component {
             </div>
             <div class="grid grid-cols-3 gap-y-4">
               {this.state.typeroom.map((item, index) => (
+                         
                 <div class="col-span-1">
                   <div class="CardEvent" key={index}>
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -244,7 +250,7 @@ export default class RoomTypeCustomer extends React.Component {
                       {this.state.name_room_type}
                     </div>
                     <div class="font-bold text-xl mb-2 text-sky-600">
-                      Rp {this.state.price}/Night
+                      Rp {formattedPrice}/Night
                     </div>
                     <p class="text-black-700 text-base">
                       {this.state.description}

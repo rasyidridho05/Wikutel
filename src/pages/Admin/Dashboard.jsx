@@ -125,19 +125,19 @@ export default class Dashboard extends React.Component {
               Welcome, {this.state.user_name}{" "}
             </h2>
             <div class="flex flex-row h-40">
-              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 ">
+              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 shadow-xl ">
                 <p class="mt-8 text-xl font-medium">Jumlah User</p>
                 <p class="text-lg font-bold">{this.state.user}</p>
               </div>
-              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 ">
+              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 shadow-xl ">
                 <p class="mt-8 text-xl font-medium">Jumlah Customer</p>
                 <p class="text-lg font-bold">{this.state.customer}</p>
               </div>
-              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 ">
+              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 shadow-xl ">
                 <p class="mt-8 text-xl font-medium">Jumlah Room</p>
                 <p class="text-lg font-bold">{this.state.room}</p>
               </div>
-              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 ">
+              <div class="w-1/4 text-gray-700 text-center bg-sky-300 px-4 py-2 m-2 rounded-md border-2  border-sky-400 shadow-xl ">
                 <p class="mt-8 text-xl font-medium">Jumlah Type Room</p>
                 <p class="text-lg font-bold">{this.state.typeroom}</p>
               </div>

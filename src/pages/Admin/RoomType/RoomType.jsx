@@ -196,7 +196,12 @@ export default class RoomType extends React.Component {
     this.getTypeRoom();
   }
 
+  formatPrice = (price) => {
+    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   render() {
+    const formattedPrice = this.formatPrice(this.state.price)
     const roomType = "Room Type";
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
@@ -258,6 +263,7 @@ export default class RoomType extends React.Component {
             </div>
             <div class="grid grid-cols-3 gap-4">
               {this.state.typeroom.map((item, index) => (
+               
                 <div class="col-span-1">
                   {/* Card untuk type room */}
                   <div class="CardEvent" key={index}>
@@ -274,7 +280,7 @@ export default class RoomType extends React.Component {
                           {item.name_room_type}
                         </div>
                         <div class="font-bold text-xl mb-2 text-sky-600">
-                          {item.price}/night
+                          Rp. {item.price}/Night
                         </div>
                         <p class="text-gray-700 text-base">
                           <LinesEllipsis
@@ -366,8 +372,8 @@ export default class RoomType extends React.Component {
                     <div class="font-bold text-2xl mb-2">
                       {this.state.name_room_type}
                     </div>
-                    <div class="font-bold text-xl mb-2 text-blue-600">
-                      {this.state.price}/night
+                    <div class="font-bold text-xl mb-2 text-sky-600">
+                      Rp. {formattedPrice}/night
                     </div>
                     <p class="text-black-700 text-base">
                       {this.state.description}

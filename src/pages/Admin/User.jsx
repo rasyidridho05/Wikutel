@@ -98,37 +98,34 @@ export default class User extends React.Component {
 
     if (this.state.action === "insert") {
       let url = "http://localhost:8080/user/add";
-      axios
-        .post(url, form, this.headerConfig())
-        .then((response) => {
-          this.getUser();
-          this.handleClose();
-        })
-        swal({
-            title:"Success Add New User",
-            icon:"success"
-        })
-        .catch((error) => {
-          console.log("error add data", error.response.status);
-          if (error.response.status === 500) {
-            window.alert("Failed to add data");
-          }
-        });
+      axios.post(url, form, this.headerConfig()).then((response) => {
+        this.getUser();
+        this.handleClose();
+        if (response.data.message === `Validation error`) {
+          window.alert("Email already exist. Please change your email");
+        }
+      });
+      swal({
+        title: "Success Add New User",
+        icon: "success",
+      }).catch((error) => {
+        console.log("error add data", error.response.status);
+        if (error.response.status === 500) {
+          window.alert("Failed to add data");
+        }
+      });
     } else {
       let url = "http://localhost:8080/user/update/" + this.state.id_user;
-      axios
-        .put(url, form, this.headerConfig())
-        .then((response) => {
-          this.getUser();
-          this.handleClose();
-        })
-        swal({
-            title:"Success Update User",
-            icon:"success"
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      axios.put(url, form, this.headerConfig()).then((response) => {
+        this.getUser();
+        this.handleClose();
+      });
+      swal({
+        title: "Success Update User",
+        icon: "success",
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   };
 
@@ -291,7 +288,7 @@ export default class User extends React.Component {
                         <td class="px-6 py-4">{item.email}</td>
                         <td class="px-6 py-4">
                           <button
-                            class="mr-4"
+                            class="mr-2 hover:bg-red-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg"
                             onClick={() => this.handleDrop(item.id_user)}
                           >
                             <svg
@@ -310,7 +307,10 @@ export default class User extends React.Component {
                               />
                             </svg>
                           </button>
-                          <button onClick={() => this.handleEdit(item)}>
+                          <button
+                            className="hover:bg-yellow-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg"
+                            onClick={() => this.handleEdit(item)}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"

@@ -65,6 +65,19 @@ export default class Login extends React.Component {
       });
   };
 
+  preventBack = () => {
+    window.history.forward();
+  };
+
+  componentDidMount() {
+    this.preventBack();
+    window.addEventListener("popstate", this.preventBack);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("popstate", this.preventBack);
+  }
+
   render() {
     return (
       <div className="w-full h-screen flex ">

@@ -284,7 +284,7 @@ export default class Room extends React.Component {
                         <td class="px-6 py-4">{item.room_type.price}</td>
                         <td class="px-6 py-4">
                           <button
-                            class="mr-4"
+                            class="mr-2 hover:bg-red-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg"
                             onClick={() => this.handleDrop(item.id_room)}
                           >
                             <svg
@@ -303,7 +303,7 @@ export default class Room extends React.Component {
                               />
                             </svg>
                           </button>
-                          <button onClick={() => this.handleEdit(item)}>
+                          <button className="hover:bg-yellow-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg" onClick={() => this.handleEdit(item)}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
