@@ -6,7 +6,7 @@ import $ from "jquery";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
-import "./pagination.styles.css"
+import "./Pagination.styles.css"
 
 export default class Room extends React.Component {
   constructor() {
@@ -215,19 +215,36 @@ export default class Room extends React.Component {
       indexOfLastItem
     );
 
+    const totalPageCount = Math.ceil(
+      this.state.room.length / this.state.itemsPerPage
+    );
+    
     const pageNumbers = [];
-    for (
-      let i = 1;
-      i <= Math.ceil(this.state.room.length / this.state.itemsPerPage);
-      i++
-    ) {
-      pageNumbers.push(i);
+    if (totalPageCount <= 6) {
+      for (let i = 1; i <= totalPageCount; i++) {
+        pageNumbers.push(i);
+      }
+    } else {
+      if (this.state.currentPage <= 3) {
+        pageNumbers.push(1, 2, 3, "...", totalPageCount);
+      } else if (this.state.currentPage >= totalPageCount - 2) {
+        pageNumbers.push(1, "...", totalPageCount - 2, totalPageCount - 1, totalPageCount);
+      } else {
+        pageNumbers.push(1, "...", this.state.currentPage - 1, this.state.currentPage, this.state.currentPage + 1, "...", totalPageCount);
+      }
     }
-
-    const renderPageNumbers = pageNumbers.map((number) => {
+    
+    const renderPageNumbers = pageNumbers.map((number, index) => {
+      if (number === "...") {
+        return (
+          <li key={index} className="disabled">
+            ...
+          </li>
+        );
+      }
       return (
         <li
-          key={number}
+          key={index}
           className={number === this.state.currentPage ? "active" : ""}
           onClick={() => this.setCurrentPage(number)}
         >

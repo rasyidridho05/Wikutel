@@ -9,21 +9,22 @@ import "@progress/kendo-theme-material/dist/all.css";
 import { PDFExport, savePDF } from "@progress/kendo-react-pdf";
 import "./invoice.styles.css";
 
-
 const PrintElement = (props) => {
-  
   const { item } = props;
   return (
     <div className="mt-4">
       <div className="invoice-container">
         <div className="invoice-header">
-          <h1 className="font-bold"><FontAwesomeIcon icon={faHotel}/> Wikutel Invoice</h1>
+          <h1 className="font-bold">
+            <FontAwesomeIcon icon={faHotel} /> Wikutel Invoice
+          </h1>
         </div>
         <div className="invoice-details">
           <div>
             <p>
-              <span className="font-semibold mt-2">Address:</span> 
-               <br />Jl. Danau Ranau, Sawojajar, Malang 65139
+              <span className="font-semibold mt-2">Address:</span>
+              <br />
+              Jl. Danau Ranau, Sawojajar, Malang 65139
             </p>
             <p>
               <span className="font-semibold mt-2">Phone:</span> 031-217111
@@ -37,39 +38,62 @@ const PrintElement = (props) => {
             <p>
               <span className="font-semibold">Booking Number:</span>{" "}
             </p>
-            <span className="invoice-number">
-              BOOK - {item.booking_number}
-            </span>
+            <span className="invoice-number">BOOK - {item.booking_number}</span>
           </div>
         </div>
 
         <table className="invoice-items">
           <thead>
             <tr>
-              <th className="p-4 text-left">Type Room</th>
+              <th className="p-4 text-center">Type Room</th>
               <th className="p-4 text-center">Total Room</th>
               <th className="p-4 text-center">Check In</th>
               <th className="p-4 text-center">Check Out</th>
+              <th className="p-4 text-center">Number of Nights</th>
               <th className="p-4 text-center">Price</th>
+              <th className="p-4 text-center">Total Price</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td className="p-4 text-left">{item.room_type.name_room_type}</td>
+              <td className="p-4 text-center">{item.room_type.name_room_type}</td>
               <td className="p-4 text-center">{item.total_room}</td>
-              <td className="p-4 text-left">
+              <td className="p-4 text-center">
                 {moment(item.check_in_date).format("DD-MM-YYYY")}
               </td>
-              <td className="p-4 text-left">
+              <td className="p-4 text-center">
                 {moment(item.check_out_date).format("DD-MM-YYYY")}
               </td>
-              <td className="p-4 text-center"> Rp. {item.room_type.price}</td>
+              <td className="p-4 text-center">
+                {calculateNumberOfNights(
+                  item.check_in_date,
+                  item.check_out_date
+                )}
+              </td>
+              <td className="p-4 text-center">Rp. {item.room_type.price}</td>
+              <td className="p-4 text-center">
+                {" "}
+                Rp.{" "}
+                {calculateNumberOfNights(
+                  item.check_in_date,
+                  item.check_out_date
+                ) *
+                  item.total_room *
+                  item.room_type.price}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   );
+};
+
+const calculateNumberOfNights = (checkInDate, checkOutDate) => {
+  const startDate = moment(checkInDate);
+  const endDate = moment(checkOutDate);
+  const duration = moment.duration(endDate.diff(startDate));
+  return duration.asDays();
 };
 
 export default class Booking extends React.Component {
@@ -171,8 +195,8 @@ export default class Booking extends React.Component {
       .get(url)
       .then((response) => {
         const sortedBooking = response.data.data.sort((a, b) =>
-        moment(b.booking_date).diff(a.booking_date)
-      );
+          moment(b.booking_date).diff(a.booking_date)
+        );
         this.setState({
           booking: sortedBooking,
         });
@@ -325,7 +349,7 @@ export default class Booking extends React.Component {
                           {moment(item.check_out_date).format("DD MMM YYYY")}
                         </td>
                         <td className="px-7 py-4">
-                        {item.booking_status === "baru" && (
+                          {item.booking_status === "baru" && (
                             <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                               {item.booking_status}
                             </span>
