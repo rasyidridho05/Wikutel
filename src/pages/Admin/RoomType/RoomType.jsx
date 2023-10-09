@@ -196,12 +196,14 @@ export default class RoomType extends React.Component {
     this.getTypeRoom();
   }
 
-  formatPrice = (price) => {
-    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  formatIDR = (amount) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(amount);
   };
 
   render() {
-    const formattedPrice = this.formatPrice(this.state.price)
     const roomType = "Room Type";
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
@@ -280,7 +282,7 @@ export default class RoomType extends React.Component {
                           {item.name_room_type}
                         </div>
                         <div class="font-bold text-xl mb-2 text-sky-600">
-                          Rp. {item.price}/Night
+                          {this.formatIDR(item.price)}/Night
                         </div>
                         <p class="text-gray-700 text-base">
                           <LinesEllipsis
@@ -360,7 +362,7 @@ export default class RoomType extends React.Component {
                 <div class="p-6">
                   <div className="container">
                     <img
-                      class="rounded-md w-200 h-100"
+                      class="rounded-md w-full h-64"
                       alt="images not found"
                       src={
                         "http://localhost:8080/uploads/image/" +
@@ -373,7 +375,7 @@ export default class RoomType extends React.Component {
                       {this.state.name_room_type}
                     </div>
                     <div class="font-bold text-xl mb-2 text-sky-600">
-                      Rp. {formattedPrice}/night
+                      {this.formatIDR(this.state.price)}/night
                     </div>
                     <p class="text-black-700 text-base">
                       {this.state.description}

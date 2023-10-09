@@ -5,6 +5,8 @@ import axios from "axios";
 import $ from "jquery";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
+import "./pagination.styles.css"
 
 export default class Room extends React.Component {
   constructor() {
@@ -20,6 +22,8 @@ export default class Room extends React.Component {
       token: "",
       keyword: "",
       action: "",
+      currentPage: 1,
+      itemsPerPage: 5,
     };
 
     if (localStorage.getItem("token")) {
@@ -35,6 +39,10 @@ export default class Room extends React.Component {
       }
     }
   }
+
+  setCurrentPage = (page) => {
+    this.setState({ currentPage: page });
+  };
 
   headerConfig = () => {
     let header = {
@@ -151,8 +159,11 @@ export default class Room extends React.Component {
     axios
       .get(url)
       .then((response) => {
+        const sortedRoom = response.data.data.sort((a, b) =>
+          moment(a.room_number).diff(b.room_number)
+        );
         this.setState({
-          room: response.data.data,
+          room: sortedRoom,
         });
       })
       .catch((error) => {
@@ -187,8 +198,44 @@ export default class Room extends React.Component {
     this.getTypeRoom();
   }
 
+  formatIDR = (amount) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(amount);
+  };
+
   render() {
     const room = "Room";
+
+    const indexOfLastItem = this.state.currentPage * this.state.itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - this.state.itemsPerPage;
+    const currentItems = this.state.room.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
+    const pageNumbers = [];
+    for (
+      let i = 1;
+      i <= Math.ceil(this.state.room.length / this.state.itemsPerPage);
+      i++
+    ) {
+      pageNumbers.push(i);
+    }
+
+    const renderPageNumbers = pageNumbers.map((number) => {
+      return (
+        <li
+          key={number}
+          className={number === this.state.currentPage ? "active" : ""}
+          onClick={() => this.setCurrentPage(number)}
+        >
+          {number}
+        </li>
+      );
+    });
+
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
         <Sidebar />
@@ -272,7 +319,7 @@ export default class Room extends React.Component {
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                  {this.state.room.map((item, index) => {
+                  {currentItems.map((item, index) => {
                     return (
                       <tr class="hover:bg-gray-50" key={index}>
                         <td class="px-6 py-4">{item.id_room}</td>
@@ -281,7 +328,9 @@ export default class Room extends React.Component {
                         <td class="px-6 py-4">
                           {item.room_type.name_room_type}
                         </td>
-                        <td class="px-6 py-4">{item.room_type.price}</td>
+                        <td class="px-6 py-4">
+                          {this.formatIDR(item.room_type.price)}
+                        </td>
                         <td class="px-6 py-4">
                           <button
                             class="mr-2 hover:bg-red-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg"
@@ -303,7 +352,10 @@ export default class Room extends React.Component {
                               />
                             </svg>
                           </button>
-                          <button className="hover:bg-yellow-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg" onClick={() => this.handleEdit(item)}>
+                          <button
+                            className="hover:bg-yellow-500 hover:text-white transition transfrom duration-300 p-2 rounded-md hover:shadow-lg"
+                            onClick={() => this.handleEdit(item)}
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
@@ -327,6 +379,7 @@ export default class Room extends React.Component {
                 </tbody>
               </table>
             </div>
+            <ul className="pagination">{renderPageNumbers}</ul>
           </div>
 
           <footer class="footer px-4 py-2">

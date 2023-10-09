@@ -101,9 +101,6 @@ export default class User extends React.Component {
       axios.post(url, form, this.headerConfig()).then((response) => {
         this.getUser();
         this.handleClose();
-        if (response.data.message === `Validation error`) {
-          window.alert("Email already exist. Please change your email");
-        }
       });
       swal({
         title: "Success Add New User",

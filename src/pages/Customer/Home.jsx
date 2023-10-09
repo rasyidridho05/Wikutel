@@ -217,12 +217,16 @@ export default class Home extends React.Component {
     }
     this.getResepsionis();
   }
-  formatPrice = (price) => {
-    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+  formatIDR = (amount) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(amount);
   };
   render() {
     const today = new Date().toISOString().split("T")[0];
-    const formattedPrice = this.formatPrice(this.state.price)
+    
     return (
       <div>
         <Navbar />
@@ -359,7 +363,7 @@ export default class Home extends React.Component {
                           {item.name_room_type}
                         </div>
                         <div class="font-bold text-xl mb-2 text-sky-600">
-                          Rp {item.price}/Night
+                          {this.formatIDR(item.price)}/Night
                         </div>
                         <p class="text-gray-700 text-base">
                           <LinesEllipsis
@@ -434,7 +438,7 @@ export default class Home extends React.Component {
                     {this.state.name_room_type}
                   </div>
                   <div class="font-bold text-xl mb-2 text-sky-600">
-                    Rp. {formattedPrice}/Night
+                    {this.formatIDR(this.state.price)}/Night
                   </div>
                   <p class="text-black-700 text-base">
                     {this.state.description}
