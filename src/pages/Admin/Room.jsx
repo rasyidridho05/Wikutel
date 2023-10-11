@@ -23,7 +23,7 @@ export default class Room extends React.Component {
       keyword: "",
       action: "",
       currentPage: 1,
-      itemsPerPage: 5,
+      itemsPerPage: 7,
     };
 
     if (localStorage.getItem("token")) {

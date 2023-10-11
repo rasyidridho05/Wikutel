@@ -26,7 +26,7 @@ export default class Footer extends Component {
   render() {
     return (
       <>
-        <footer className=" border-t-2 border-sky-800 w-full ">
+        <footer className=" w-full shadow-inner ">
           <div className="container p-6 mx-auto">
             <div className="lg:flex">
               <div className="mt-6 lg:mt-0 lg:flex-1">
@@ -85,7 +85,7 @@ export default class Footer extends Component {
 
                   <div>
                     <span className="block mt-2 text-sm text-sky-700 font-medium hover:underline hover:font-semibold hover:text-sky-800 transition transform duration-500">
-                    031-217111
+                      031-217111
                     </span>
                     <span className="block mt-2 text-sm text-sky-700 font-medium hover:underline hover:font-semibold hover:text-sky-800 transition transform duration-500">
                       Wikutel@live.in

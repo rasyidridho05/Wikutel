@@ -106,8 +106,8 @@ export default class Home extends React.Component {
     let url = "http://localhost:8080/booking/add";
     axios.post(url, form, this.headerConfig()).then((response) => {
       this.getBooking();
-      this.handleClose();
-      window.location = "/booking";
+      // this.handleClose();
+      // window.location = "/booking";
     });
     swal({ title: "Berhasil Booking!", icon: "success" }).catch((error) => {
       console.log("error add data", error);
@@ -219,35 +219,66 @@ export default class Home extends React.Component {
   }
 
   formatIDR = (amount) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
     }).format(amount);
   };
   render() {
     const today = new Date().toISOString().split("T")[0];
-    
+
     return (
       <div>
         <Navbar />
         <section class=" py-24 mt-6 ">
           <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
-              <h1 class="max-w-2xl mb-8 text-4xl font-extrabold leading-none md:text-4xl xl:text-5xl text-sky-800">
-                Find the Best Hotels & Resorts to Stay
+              <h1 class="max-w-2xl mb-8 text-4xl font-extrabold leading-none md:text-4xl xl:text-4xl text-sky-800">
+              Plan Your Trip with Ease: Quick and Secure Hotel Booking!
               </h1>
-              <p class="max-w-2xl mb-6 lg:mb-14 md:text-lg lg:text-xl text-sky-700">
+              <p class="max-w-2xl mb-6 lg:mb-8 md:text-lg lg:text-xl text-sky-700">
                 We provide a variety of the best accommodation for the best
                 experience. There's no need to doubt the quality, let's book
                 now!
               </p>
+              {this.state.isLogin ? (
+                <div className=" pb-14">
+                  <button
+                    className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline shadow-xl"
+                    onClick={() => this.showModal()}
+                  >
+                    Booking now!
+                  </button>
+                </div>
+              ) : (
+                <div className="px-6 pt-9 pb-6">
+                  <button
+                    className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
+                    disabled
+                  >
+                    Booking Now
+                    <svg
+                      class="w-5 h-5 ml-2 -mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              )}
               <div class="flex flex-row mb-8">
                 <div className=" bg-white border-2 border-grey rounded-lg shadow h-auto">
                   <div class="flex flex-row">
                     <div className="px-4 pt-5 pb-6">
                       <div class="flex items-center">
                         <div>
-                          <h3 className="mb-1 font-bold">Check-In Date</h3>
+                          <h3 className="mb-1 font-bold">Check In Date</h3>
                           <input
                             type="date"
                             name="in"
@@ -263,7 +294,7 @@ export default class Home extends React.Component {
                     <div className="pt-5 pb-6">
                       <div class="flex items-center">
                         <div>
-                          <h3 className="mb-1 font-bold">Check-Out Date</h3>
+                          <h3 className="mb-1 font-bold">Check Out Date</h3>
                           <input
                             type="date"
                             name="out"
@@ -286,49 +317,6 @@ export default class Home extends React.Component {
                     </div>
                   </div>
                 </div>
-                {this.state.isLogin ? (
-                  <div className="px-6 pt-9 pb-6">
-                    <button
-                      className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
-                      onClick={() => this.showModal()}
-                    >
-                      Booking now
-                      <svg
-                        class="w-5 h-5 ml-2 -mr-1"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                ) : (
-                  <div className="px-6 pt-9 pb-6">
-                    <button
-                      className=" bg-sky-600 hover:bg-sky-800 transition transform duration-300 hover:text-white text-white font-semibold inline-flex items-center justify-center p-2 px-3 rounded focus:outline-none focus:shadow-outline"
-                      disabled
-                    >
-                      Booking Now
-                      <svg
-                        class="w-5 h-5 ml-2 -mr-1"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
             <div class="hidden lg:mt-0 lg:col-span-5 lg:flex shadow-2xl">

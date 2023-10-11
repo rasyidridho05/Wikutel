@@ -1,8 +1,7 @@
-/* Button needed to position the button. Adjust the width as needed */
+
 .button {
     position: relative;
   }
-  /* Style the button and place it in the middle of the container/image */
   .button .edit {
     position: absolute;
     right: 16%;
