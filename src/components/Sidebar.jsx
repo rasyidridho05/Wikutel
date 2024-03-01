@@ -116,9 +116,9 @@ export default class Sidebar extends React.Component {
               <li class="my-px">
                 <a
                   href="/"
-                  class="flex flex-row items-center h-14 px-3 rounded-lg text-sky-800 hover:bg-sky-100 hover:text-gray-700 transition transform duration-300 mt-60"
+                  class="flex flex-row items-center h-14 px-3 rounded-lg text-red-500 hover:bg-red-100 transition transform duration-300 mt-60"
                 >
-                  <span class="mr-3 flex items-center justify-center text-lg text-red-400">
+                  <span class="mr-3 flex items-center justify-center text-lg text-red-500">
                     <FontAwesomeIcon icon={faRightFromBracket} />
                   </span>
                   <span class="ml-2" onClick={() => this.logOut()}>

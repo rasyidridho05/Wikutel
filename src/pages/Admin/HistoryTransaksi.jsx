@@ -305,17 +305,17 @@ export default class HistoryTransaksi extends React.Component {
                         </td>
                         <td className="px-4 py-4">
                           {item.booking_status === "baru" && (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            <span className="py-2 px-2 w-full justify-center inline-flex text-xs leading-5 font-bold capitalize rounded-md bg-blue-100 text-blue-500">
                               {item.booking_status}
                             </span>
                           )}
                           {item.booking_status === "check_in" && (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
+                            <span className="py-2 px-2 w-full justify-center inline-flex text-xs leading-5 font-bold capitalize rounded-md bg-emerald-100 text-emerald-500">
                               {item.booking_status}
                             </span>
                           )}
                           {item.booking_status === "check_out" && (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-200 text-red-800">
+                            <span className="py-2 px-2 w-full justify-center inline-flex text-xs leading-5 font-bold capitalize rounded-md bg-red-100 text-red-500">
                               {item.booking_status}
                             </span>
                           )}

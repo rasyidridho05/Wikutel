@@ -102,20 +102,20 @@ export default class RoomTypeCustomer extends React.Component {
   }
 
   formatIDR = (amount) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
     }).format(amount);
   };
 
   render() {
     return (
       <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800 pt-20">
-        <main class="main flex flex-col flex-grow -ml-64 md:ml-0 transition-all duration-300 ease-in">
-          <Navbar />
-          <div class="main-content flex flex-col flex-grow p-4 pl-16 mb-16 ">
+        <Navbar />
+        <main class="flex flex-col flex-grow transition-all duration-300 ease-in">
+          <div class="flex flex-col flex-grow p-4 md:pl-16 mb-4 md:mb-16 ">
             <div class="mb-4">
-              <div className="justify-items-center w-1/2">
+              <div className="justify-items-center md:w-1/2 w-full ">
                 <div className="rounded mb-5">
                   <label
                     for="default-search"
@@ -160,9 +160,8 @@ export default class RoomTypeCustomer extends React.Component {
                 </div>
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-y-6">
               {this.state.typeroom.map((item, index) => (
-                         
                 <div class="col-span-1">
                   <div class="CardEvent" key={index}>
                     <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -203,10 +202,11 @@ export default class RoomTypeCustomer extends React.Component {
               ))}
             </div>
           </div>
+          {/* Modal Detail */}
           <div
             id="modal_detail"
             tabindex="-1"
-            class="overflow-x-auto fixed top-0 left-0 right-0 z-50 hidden w-full pt-10 pb-10 pl-96 md:inset-0 h-modal md:h-full bg-tranparent bg-black bg-opacity-50"
+            class="overflow-x-auto fixed top-0 left-0 right-0 z-50 hidden w-full py-16 px-8 md:px-0 md:pl-96 md:inset-0 h-modal md:h-full bg-tranparent bg-black bg-opacity-50"
           >
             <div class="relative w-full h-full max-w-lg md:h-auto border-2 border-gray-500 rounded-lg shadow-2xl items-center justify-center">
               <div class="relative bg-white rounded-lg">

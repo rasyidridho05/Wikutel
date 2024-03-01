@@ -234,7 +234,7 @@ export default class Home extends React.Component {
           <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
             <div class="mr-auto place-self-center lg:col-span-7">
               <h1 class="max-w-2xl mb-8 text-4xl font-extrabold leading-none md:text-4xl xl:text-4xl text-sky-800">
-              Plan Your Trip with Ease: Quick and Secure Hotel Booking!
+                Plan Your Trip with Ease: Quick and Secure Hotel Booking!
               </h1>
               <p class="max-w-2xl mb-6 lg:mb-8 md:text-lg lg:text-xl text-sky-700">
                 We provide a variety of the best accommodation for the best
@@ -273,17 +273,17 @@ export default class Home extends React.Component {
                 </div>
               )}
               <div class="flex flex-row mb-8">
-                <div className=" bg-white border-2 border-grey rounded-lg shadow h-auto">
-                  <div class="flex flex-row">
+                <div className=" w-full md:w-fit bg-white border-2 border-grey rounded-lg shadow h-auto">
+                  <div class="flex flex-col md:flex-row">
                     <div className="px-4 pt-5 pb-6">
                       <div class="flex items-center">
-                        <div>
+                        <div className="w-fit md:w-full">
                           <h3 className="mb-1 font-bold">Check In Date</h3>
                           <input
                             type="date"
                             name="in"
                             id="in"
-                            className="border-2 border-blue-400 rounded-md p-1"
+                            className="border-2 border-blue-400 rounded-md p-1 w-fit md:w-full"
                             value={this.state.in}
                             onChange={this.handleChange}
                             min={today}
@@ -291,15 +291,15 @@ export default class Home extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div className="pt-5 pb-6">
-                      <div class="flex items-center">
-                        <div>
+                    <div className="pt-5 px-4 md:px-0 pb-6">
+                      <div class="flex items-center w-full">
+                        <div className="w-fit md:w-full">
                           <h3 className="mb-1 font-bold">Check Out Date</h3>
                           <input
                             type="date"
                             name="out"
                             id="out"
-                            className="border-2 border-blue-400 rounded-md p-1"
+                            className="border-2 border-blue-400 rounded-md p-1 w-fit md:w-full"
                             value={this.state.out}
                             onChange={this.handleChange}
                             min={this.state.in}
@@ -332,7 +332,7 @@ export default class Home extends React.Component {
                 Available Room
               </h2>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               {this.state.rooms.map((item, index) => (
                 <div class="col-span-1">
                   <div class="CardEvent mx-10">
